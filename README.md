@@ -2,3 +2,5 @@
 ## Ionian University
 Department of Ethnomusicology  
 Faculty of Music & Audiovisual Arts  
+  
+Thesis: Svoronos - Kanavas Jason (2371)
