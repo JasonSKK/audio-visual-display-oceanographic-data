@@ -1,0 +1,12 @@
+from:
+https://unix.stackexchange.com/questions/603608/how-to-print-max-and-min-value-of-a-column-in-txt-file-into-variable
+go to zsh
+                          2nd col
+$ min=$(awk '!/col/ {print $2}' GAVDOS1.txt | sort -nr | tail -1)
+$ max=$(awk '!/col/ {print $2}' GAVDOS1.txt | sort -nr | head -1)
+
+$ echo "$min"
+20
+
+$ echo "$max"
+50
