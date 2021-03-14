@@ -9,7 +9,7 @@ import time
 
 #import urllib.requests
 import matplotlib.pyplot as plt
-#load the .txt file
+#Load the .txt file
 df = np.loadtxt(fname = os.getcwd()+"/GAVDOS1.txt", dtype='str')
 
 #pyosc
