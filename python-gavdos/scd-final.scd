@@ -359,6 +359,16 @@ OSCdef(\sign_height,
         //msg[7].postln;
         temp = temp.linlin(0.020, 0.880, 1, 1000);
 		amp = temp.linlin(0.020, 0.880, 0.1, 0.2);
+
+
+
+		//////////////////////////////////////////////////////////////HEY
+		//send OSC msg to Open Frameworks
+		~nsend.sendMsg('/waves/sign_height',  temp);
+		/////////////////////////////////////////////////////////////HERE
+
+
+		
 		if ( (~counter > 30) && (~counter <= 46),
 			{
 				amp = amp + 0.01;
@@ -398,6 +408,14 @@ OSCdef(\zero_upcrossing,
         temp = temp.linlin(3.2, 8.7, 1, 1000);///FIX THIS MAPPING
 		even = temp.round(1);
 		even = even.asInt;
+
+
+		//////////////////////////////////////////////////////////////HEY
+		//send OSC msg to Open Frameworks
+		~nsend.sendMsg('/waves/zero_upcrossing',  temp);
+		/////////////////////////////////////////////////////////////HERE
+
+		
 		//even.postln;
 		//4th or 5th
 		if(temp <= 125, {freq = [~scale[3], ~scale[4]].choose});
@@ -505,6 +523,15 @@ OSCdef(\max_height,
 		temp = msg[9].asFloat;
         //msg[9].postln;
         temp = temp.linlin(0.025, 1.300, 1, 1000);///FIX THIS MAPPING
+
+
+
+		//////////////////////////////////////////////////////////////HEY
+		//send OSC msg to Open Frameworks
+		~nsend.sendMsg('/waves/max_height',  temp);
+		/////////////////////////////////////////////////////////////HERE
+
+		
 
 		//7th and 11th
 		///////////////////////////
