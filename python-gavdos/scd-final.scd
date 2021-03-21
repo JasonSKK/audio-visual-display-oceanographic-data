@@ -94,7 +94,7 @@ SynthDef("chaos", {
 	sig = Mix.fill(10, {|i = 1| i = i * 1.0.rand;
 		SinOsc.ar(freq* i, SinOsc.ar(i*(50)).range(-10, 10))+
 		LPF.ar(WhiteNoise.ar(0.9), LFNoise1.ar(1).range(2000, 8800))});
-	env = EnvGen.kr(Env.adsr(0.031, 0.1, releaseTime:reltime, curve:-4), Line.kr(1, 0, gate), doneAction:2);
+	env = EnvGen.kr(Env.adsr(0.031, 0.1, releaseTime:reltime, curve:-4), Line.kr(1, 0, gate * 0.89), doneAction:2);
 	sig = sig;
 	sig = SplayAz.ar(2, sig, 4);
 	sig = sig*2.fold2(0.4).tanh(1.9);
@@ -279,7 +279,7 @@ OSCdef(\temp,
 		if((temp > 750) && (temp <= 875), {
 			freq = [~scale[6], ~scale[1]*2, ~scale[3]*2].choose});
 		if((temp > 875), {freq = [~scale[7], ~scale[1] *2].choose});
-
+		
 		///////////////////////////
 		//ambience start
 		if (~counter < 50,{
@@ -433,9 +433,33 @@ OSCdef(\zero_upcrossing,
 			freq = [~scale[1], ~scale[2]*2].choose});
 		if((temp > 875), {freq = [~scale[2], ~scale[3] *2].choose});
 		
-		if(~counter == 65, {~s5 = Synth("chaos", [\freq, temp])});
-		if(~counter == 71, {~s5 = Synth("chaos", [\freq, temp])});
+		if(~counter == 65, {~s5 = Synth("chaos", [\freq, temp]);
+			//////////////////////////////////////////////////////////////HEY
+			//send OSC msg to Open Frameworks
+			~nsend.sendMsg('/waves/noisea',  1);
+			/////////////////////////////////////////////////////////////HERE
+		});
+		
+			if(~counter == 66, {
+			//////////////////////////////////////////////////////////////HEY
+			//send OSC msg to Open Frameworks
+			~nsend.sendMsg('/waves/noisea',  0);
+			/////////////////////////////////////////////////////////////HERE
+			});
+		
+		if(~counter == 71, {~s5 = Synth("chaos", [\freq, temp]);	
+			//////////////////////////////////////////////////////////////HEY
+			//send OSC msg to Open Frameworks
+			~nsend.sendMsg('/waves/noisea',  1);
+			/////////////////////////////////////////////////////////////HERE
+		});
 
+			if(~counter == 72, {
+			//////////////////////////////////////////////////////////////HEY
+			//send OSC msg to Open Frameworks
+			~nsend.sendMsg('/waves/noisea',  0);
+			/////////////////////////////////////////////////////////////HERE
+		});
 		
 		if((~counter > 74) && (~counter < 90), {~ampmelody = ~ampmelody + 0.01;});
 		//Melody
@@ -511,7 +535,18 @@ OSCdef(\zero_upcrossing,
 					\cutoff, ~cutoffwss])//cutoffwss]);
 			});
 
-		if(~counter == 173, {~s5 = Synth("chaos", [\freq, temp])});
+		if(~counter == 173, {~s5 = Synth("chaos", [\freq, temp]);
+			//////////////////////////////////////////////////////////////HEY
+			//send OSC msg to Open Frameworks
+			~nsend.sendMsg('/waves/noisea',  1);
+			/////////////////////////////////////////////////////////////HERE			
+		});
+				if(~counter == 175, {
+			//////////////////////////////////////////////////////////////HEY
+			//send OSC msg to Open Frameworks
+			~nsend.sendMsg('/waves/noisea',  0);
+			/////////////////////////////////////////////////////////////HERE			
+		});
 		
 	}, '/send' 
 );
@@ -609,7 +644,26 @@ OSCdef(\max_height,
 		};
 
 		if(~counter == 205){
-			Synth("chaos", [\amp, 0.6, \reltime, 16.25])};
+			Synth("chaos", [\amp, 0.6, \reltime, 16.25]);
+		};
+
+
+		if((~counter >= 205) && (~counter <= 215)){
+
+				//////////////////////////////////////////////////////////////HEY
+			//send OSC msg to Open Frameworks
+			~nsend.sendMsg('/waves/noisea',  2);
+			/////////////////////////////////////////////////////////////HERE
+};
+
+
+		
+		if(~counter == 218){
+				//////////////////////////////////////////////////////////////HEY
+			//send OSC msg to Open Frameworks
+			~nsend.sendMsg('/waves/noisea',  0);
+			/////////////////////////////////////////////////////////////HERE
+		};
 
 		//STOP EVERYTHING
 		if(~counter == 222){
@@ -634,7 +688,7 @@ OSCdef(\max_height,
 //:
 
 
-
+~counter = 60
 
 //USEFULL SYNTHS
 
