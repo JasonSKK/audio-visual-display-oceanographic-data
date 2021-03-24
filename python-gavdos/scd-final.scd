@@ -3,10 +3,10 @@
 s.meter;
 s.scope;
 //:
-~n = NetAddr("192.168.1.3", 57120);
+~n = NetAddr("192.168.1.6", 57120);
 //IP Address might change sometimes - CAREFULL IF ERROR
 //"192.168.1.3"
-~nsend = NetAddr("192.168.1.3", 12345);
+~nsend = NetAddr("192.168.1.6", 12345);
 //:-----------------------------------------------------------------------------------------
 //Synths
 b = Buffer.readChannel(s, Platform.userHomeDir +/+ "Media/SoundSamples/Recordings_THMO_DigitalSoundSynthesis_15-6-15/pigadi_apo_poli_konta_syrsimata.wav", 2**19, -1, channels: 1);
@@ -94,7 +94,7 @@ SynthDef("chaos", {
 	sig = Mix.fill(10, {|i = 1| i = i * 1.0.rand;
 		SinOsc.ar(freq* i, SinOsc.ar(i*(50)).range(-10, 10))+
 		LPF.ar(WhiteNoise.ar(0.9), LFNoise1.ar(1).range(2000, 8800))});
-	env = EnvGen.kr(Env.adsr(0.031, 0.1, releaseTime:reltime, curve:-4), Line.kr(1, 0, gate * 0.89), doneAction:2);
+	env = EnvGen.kr(Env.adsr(0.031, 0.1, releaseTime:reltime, curve:-4), Line.kr(1, 0, gate * 0.8), doneAction:2);
 	sig = sig;
 	sig = SplayAz.ar(2, sig, 4);
 	sig = sig*2.fold2(0.4).tanh(1.9);
@@ -541,7 +541,7 @@ OSCdef(\zero_upcrossing,
 			~nsend.sendMsg('/waves/noisea',  1);
 			/////////////////////////////////////////////////////////////HERE			
 		});
-				if(~counter == 175, {
+				if(~counter == 174, {
 			//////////////////////////////////////////////////////////////HEY
 			//send OSC msg to Open Frameworks
 			~nsend.sendMsg('/waves/noisea',  0);
@@ -688,7 +688,8 @@ OSCdef(\max_height,
 //:
 
 
-~counter = 60
+
+
 
 //USEFULL SYNTHS
 
@@ -748,5 +749,4 @@ SynthDef("phm1", {
 
 //<=8 +++++++++++++++
 //--- After a while ---
-
 

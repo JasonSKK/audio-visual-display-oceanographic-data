@@ -13,7 +13,7 @@ import matplotlib.pyplot as plt
 df = np.loadtxt(fname = os.getcwd()+"/GAVDOS1.txt", dtype='str')
 
 #pyosc
-client = udp_client.SimpleUDPClient("192.168.1.3", 57120)
+client = udp_client.SimpleUDPClient("192.168.1.6", 57120)
 #IP Address might change sometimes - CAREFULL IF ERROR
 
 #Official!!!!CAREFULL
