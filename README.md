@@ -10,4 +10,4 @@ In real time each value is being sent to SuperCollider and from there to
 OpenFrameworks as an OSC message.  
   
 Audio: Each value controls the frequency, amplitute, pan, modulation frequency and more Synth parameters.  
-Visuals: Coming soon.  
+Visuals: Each seawave column (temp, significant height [Ht], Zero up-crossing wave period [Tz], Max height [Hmax] controls multiple parameters)
