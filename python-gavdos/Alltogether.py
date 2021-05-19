@@ -8,12 +8,12 @@ from pythonosc import udp_client
 import time
 
 #import urllib.requests
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 #Load the .txt file
 df = np.loadtxt(fname = os.getcwd()+"/GAVDOS1.txt", dtype='str')
 
 #pyosc
-client = udp_client.SimpleUDPClient("192.168.1.6", 57120)
+client = udp_client.SimpleUDPClient("192.168.1.7", 57120)
 #IP Address might change sometimes - CAREFULL IF ERROR
 
 #Official!!!!CAREFULL

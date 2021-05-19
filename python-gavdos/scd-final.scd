@@ -3,10 +3,10 @@
 s.meter;
 s.scope;
 //:
-~n = NetAddr("192.168.1.6", 57120);
+~n = NetAddr("192.168.1.7", 57120);
 //IP Address might change sometimes - CAREFULL IF ERROR
 //"192.168.1.3"
-~nsend = NetAddr("192.168.1.6", 12345);
+~nsend = NetAddr("192.168.1.7", 12345);
 //:-----------------------------------------------------------------------------------------
 //Synths
 b = Buffer.readChannel(s, Platform.userHomeDir +/+ "Media/SoundSamples/Recordings_THMO_DigitalSoundSynthesis_15-6-15/pigadi_apo_poli_konta_syrsimata.wav", 2**19, -1, channels: 1);
@@ -229,7 +229,7 @@ OSCdef(\temp,
 		var temp;
 		~counter.postln;
 		//POST-ALL
-		[msg[1], msg[2], msg[4], msg[6], msg[7], msg[8]].postln;
+		[msg[1], msg[2], msg[4], msg[7], msg[8], msg[9]].postln;
 		//
 		
 		temp = msg[4].asFloat;
@@ -366,7 +366,6 @@ OSCdef(\sign_height,
 		//send OSC msg to Open Frameworks
 		~nsend.sendMsg('/waves/sign_height',  temp);
 		/////////////////////////////////////////////////////////////HERE
-
 
 		
 		if ( (~counter > 30) && (~counter <= 46),
