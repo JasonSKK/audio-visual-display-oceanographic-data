@@ -10,7 +10,7 @@ In real time each value is being sent to SuperCollider and from there to
 openFrameworks as an OSC message.
 
 Audio: Each value configures the frequency, amplitute, pan, modulation frequency and more synth parameters.
-Visuals: Each column (temp, significant height [Ht], Zero crossing wave period [Tz], Max height [Hmax] controls multiple parameters)
+Visuals: Each column (temp, significant height [Ht], Zero crossing wave period [Tz], Max height [Hmax]) configures multiple parameters
 
 ***
 ## Abstract
