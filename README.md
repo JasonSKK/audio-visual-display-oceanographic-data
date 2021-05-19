@@ -1,4 +1,4 @@
-# Generative-Art-Sonifing-Visualising-Sea-Wave-datasets
+# Sonifing & visualising sea wave datasets
 ## Ionian University
 Department of Ethnomusicology
 Faculty of Music & Audiovisual Arts
