@@ -7,16 +7,13 @@ from pythonosc import osc_message_builder
 from pythonosc import udp_client
 import time
 
-#import urllib.requests
-#import matplotlib.pyplot as plt
 #Load the .txt file
 df = np.loadtxt(fname = os.getcwd()+"/GAVDOS1.txt", dtype='str')
 
 #pyosc
-client = udp_client.SimpleUDPClient("192.168.1.7", 57120)
+client = udp_client.SimpleUDPClient("192.168.1.9", 57120)
 #IP Address might change sometimes - CAREFULL IF ERROR
 
-#Official!!!!CAREFULL
 for i in range(len(df)):
 #for i in range(70):
     client.send_message("/send", df[i])
@@ -31,5 +28,4 @@ for i in range(len(df)):
     time.sleep(float(df[i,3]) / 16) # Seconds
 
 
-
-print("klippa-hans-tung")
+print("end")

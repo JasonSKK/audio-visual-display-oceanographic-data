@@ -103,7 +103,7 @@ OSCdef(\max_height,
 		var temp;
 		temp = msg[9].asFloat;
         //msg[9].postln;
-        temp = temp.linlin(0.025, 1.300, 1, 1000);///FIX THIS MAPPING
+        temp = temp.linlin(0.025, 1.300, 1, 1000);
 		cutoff = temp.linlin(1, 1000, 100, 20000);
 		
 		~synth1.set(\cutoff, cutoff.lag(0.5));

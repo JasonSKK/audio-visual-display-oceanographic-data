@@ -4,7 +4,6 @@
 void ofApp::setup(){
 
     ofBackground(22);
-    ofSetVerticalSync(true);
 
     //Cursor
     ofHideCursor();
@@ -13,35 +12,10 @@ void ofApp::setup(){
     osc.setup(PORT);
     osc1 = 0.0;
 
-    //box2d Setup
-    box2d.init();
-    box2d.setFPS(120);
-    box2d.createBounds();
-    box2d.setGravity(0, 100);
-    box2d.registerGrabbing();
-
-
-
-
-    int maxParticles = 30000; // 30k particles
-
-    particleSystem.init(box2d.getWorld());
-    particleSystem.setMaxParticles(maxParticles);
-    particleSystem.setRadius(2.1);
-
-    glm::vec2 center(ofGetWidth()/2, ofGetHeight()/2);
-
-    for(int i=0; i<maxParticles; i++) {
-        particleSystem.addParticle(center.x + ofRandom(-ofGetWidth(), ofGetWidth()),
-                                   center.y + ofRandom(-100, 100));
-    }
-
-
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
-    box2d.update();
 
     //OSC
     while(osc.hasWaitingMessages()) {
@@ -60,7 +34,7 @@ void ofApp::update(){
             counter++;
         }
 
-        //Zero_crossing
+        //Zero_upcrossing
         if(m.getAddress() == "/waves/zero_upcrossing") {
             osc3 = m.getArgAsFloat(0);
             counter++;
@@ -72,54 +46,14 @@ void ofApp::update(){
             counter++;
         }
 
-        //Noisea
-        if(m.getAddress() == "/waves/noisea") {
-            noisea = m.getArgAsFloat(0);
-            counter++;
-        }
-
     }
-
-    //Noise-attack
-    if( noisea == 0){
-        bco = 22;
-        ofSetBackgroundColor(bco);
-    }
-    if( noisea == 1){
-        bco = ofMap(sin(ofGetFrameNum() * 10), -1, 1, 0, 255);
-        ofSetBackgroundColor(bco);
-        }
-    if( noisea == 2){
-        bco = ofMap(sin(ofGetFrameNum() * 10), -1, 1, 0, 255);
-        ofSetBackgroundColor(bco);
-        //for(int i = 0; i < 900; i++){bco = bco}
-        }
-    /*
-      //FOR YELLOWISH -ORANGE COL
-      //RED: bco GREEN: bco/6 + ofRandom(22, 50)   BLUE: ofRandom(0, 55)
-    if( noisea == 2){
-        bco = ofMap(sin(ofGetFrameNum() * 10), -1, 1, 0, 255);
-        ofSetBackgroundColor(bco);
-    }
-    */
-
-
-
-
-
-
-}
-//--------------------------------------------------------------
-void ofApp::drawGravity(ofPoint p, ofPoint gravity) {
 
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 
-    //cam.begin(ofRectangle(-ofGetWidth()/2, -ofGetHeight() + (ofGetHeight()) , ofGetWidth() + (ofGetWidth()/2) - (ofGetWidth()/2) , ofGetHeight()*2));
-
-    //Temperature
+  //Temperature
     ofSetColor(255, 100, 0);
     ofDrawBitmapString("Temperature", 900, 50);
     ofSetColor(255, 0, 0);
@@ -144,10 +78,7 @@ void ofApp::draw(){
     ofDrawBitmapString(ofMap(osc4, 1, 1000, 0.025, 1.300), 1300, 75);
 
 
-    particleSystem.updateMesh();
-    //ofSetColor(0, 100, 255);
-
-    //Colours____Significant_Height && Zero_crossing_period
+    //Colours____Significant_Height && Zero_upcrossing_period
     for(int i = 0; i <= counter; i++){
         //RED
         //Significant_height Colour parameter
@@ -169,56 +100,53 @@ void ofApp::draw(){
         //Significant_height Colour parameter
         if(z_upcrossing < osc3){
             z_upcrossing = z_upcrossing + 0.0125;
-            green = ofMap(z_upcrossing, 1, 1000, 20, 100);
+            green = ofMap(z_upcrossing, 1, 1000, 20, 255);
             sleep(0.1);
         };
         if(z_upcrossing > osc3){
             z_upcrossing = z_upcrossing - 0.0125;
-            green = ofMap(z_upcrossing, 1, 1000, 20, 100);
+            green = ofMap(z_upcrossing, 1, 1000, 20, 255);
             sleep(0.1);
         };
     }
 
-    ofSetColor(green, 0, red * 2);
-    particleSystem.draw();
 
-    //particle relations
-    ofNoFill();
-    auto * contacts = particleSystem.getParticleSystem()->GetContacts();
-    auto * positions = particleSystem.getParticleSystem()->GetPositionBuffer();
-    int count = particleSystem.getParticleSystem()->GetContactCount();
-    for(int i=0; i<count; i++) {
-        auto contact = contacts[i];
-        auto a = ofxBox2d::toOf(positions[contact.GetIndexA()]);
-        auto b = ofxBox2d::toOf(positions[contact.GetIndexB()]);
-        ofSetColor(red, green, 0);//, 10, 255);// , temp * sin(temp * i * 0.01), 0 );
-        ofDrawLine(a, b);
-        //ofDrawLine(a, a+100);
-    }
+    /*  //GREEN
+    //Significant_height Colour parameter
+    if(max < osc4){
+        max = max + 0.0125;
+        max = ofMap(max, 1, 1000, 20, 255);
+        sleep(0.1);
+    };
+    if(z_upcrossing > osc3){
+        z_upcrossing = z_upcrossing - 0.0125;
+        green = ofMap(z_upcrossing, 1, 1000, 20, 255);
+        sleep(0.1);
+    };
+    */
 
 
 
-    for(int i = 0; i <= counter; i++){
-
-        //Max_height amount parameter
-        max = ofMap(osc4, 1, 1000, 1.0, 1.5);
-
-        //Up & down gravity if temp (osc1) (1, 1000).isEven
-        if((int)osc1 % 2 == 0){temp = -50;}
-        else
-        {temp = 50;}
-        box2d.setGravity(temp * max, 70);
-    }
 
 
-    box2d.setGravity(temp * max, 70);
 
 
+
+
+
+
+    //ofNoFill();
+    ofSetColor(ofMap(osc1, 1, 1000, 55, 255), 0, 0);
+    ofSetCircleResolution(100);
+    ofCircle(ofMap(red, 55, 255, 200, ofGetWidth()), //sig_height
+        ofMap(green, 20, 255, 50, ofGetHeight()), //z_upcrossing
+             ofMap(osc4, 1, 1000, 20, 200)); //max
 
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+
 }
 
 //--------------------------------------------------------------
@@ -233,8 +161,6 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    ofNoFill();
-    particleSystem.addParticle(x, y);
 
 }
 

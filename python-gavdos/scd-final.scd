@@ -3,13 +3,13 @@
 s.meter;
 s.scope;
 //:
-~n = NetAddr("192.168.1.7", 57120);
+~n = NetAddr("192.168.1.9", 57120);
 //IP Address might change sometimes - CAREFULL IF ERROR
 //"192.168.1.3"
-~nsend = NetAddr("192.168.1.7", 12345);
+~nsend = NetAddr("192.168.1.9", 12345);
 //:-----------------------------------------------------------------------------------------
 //Synths
-b = Buffer.readChannel(s, Platform.userHomeDir +/+ "Media/SoundSamples/Recordings_THMO_DigitalSoundSynthesis_15-6-15/pigadi_apo_poli_konta_syrsimata.wav", 2**19, -1, channels: 1);
+b = Buffer.readChannel(s, Platform.userHomeDir +/+ "Media/SoundSamples/recordings-department-ethnomus-dig-sound-synthesis_15-6-15/pigadi_apo_poli_konta_syrsimata.wav", 2**19, -1, channels: 1);
 
 //Initialisation
 //Set counter => sum of msgs 
@@ -219,7 +219,7 @@ SynthDef("reverb",{
 
 //s.record("~/Desktop/waves.wav");
 
-//vvvvvvvvv Must evaluate seperately (SynthDef)otherwise will (SynthDef toy grain not found)
+//vvvvvvvvv Must evaluate seperately (SynthDef) otherwise (SynthDef toy grain not found)
 ~s4 = Synth("toygrain", [\sndbuf, b, \envbuf, -1, \amp, 0.0]);
 //Initialisation
 ~ampcounter = 0.0; 
@@ -233,7 +233,7 @@ OSCdef(\temp,
 		//
 		
 		temp = msg[4].asFloat;
-		temp = temp.linlin(18.96, 26.71, 1, 1000); //FIX THIS MAPPING
+		temp = temp.linlin(18.96, 26.71, 1, 1000); 
 
 
 
@@ -404,7 +404,7 @@ OSCdef(\zero_upcrossing,
 		| msg, freq | 
 		var temp, even;
 		temp = msg[8].asFloat;
-        temp = temp.linlin(3.2, 8.7, 1, 1000);///FIX THIS MAPPING
+        temp = temp.linlin(3.2, 8.7, 1, 1000);
 		even = temp.round(1);
 		even = even.asInt;
 
@@ -556,7 +556,7 @@ OSCdef(\max_height,
 		var temp;
 		temp = msg[9].asFloat;
         //msg[9].postln;
-        temp = temp.linlin(0.025, 1.300, 1, 1000);///FIX THIS MAPPING
+        temp = temp.linlin(0.025, 1.300, 1, 1000);
 
 
 
@@ -690,26 +690,20 @@ OSCdef(\max_height,
 
 
 
-//USEFULL SYNTHS
+//USEFULL SYNTHS & experimentation
 
-//: Maybe for ending???
+//: 
 play{
 	Pulse.ar(200 + ((1..30) * [-1, 1].choose).normalizeSum, SinOsc.ar(200, Line.kr(pi/8, pi, 4))) * 0.01!2
 }
-//:
-
-
-
-{Resonz.ar(LFNoise1.ar(400),Line.kr(10000,100,10), Line.kr(0.1, 1.0, 8))!2}.play;
 
 //:
-
 
 play{
 	var sig = Pulse.ar(100 + ((1..30) * [-1, 1].choose).normalizeSum, SinOsc.ar(100, Line.kr(pi/8, pi, 4))) * 0.02 * Line.kr(1, 0, 15).clip2(0.666)!2;
 	sig = LPF.ar(sig, Line.kr(10000, 4444, 1));
-				sig = Compander.ar(sig, sig, 0.666, 1.0, 0.1);
-			}
+	sig = Compander.ar(sig, sig, 0.666, 1.0, 0.1);
+}
 
 //:
 //FROM GRADES
@@ -746,6 +740,4 @@ SynthDef("phm1", {
     Out.ar(0, Pan2.ar(out, pan))
 }).add;
 
-//<=8 +++++++++++++++
-//--- After a while ---
 
