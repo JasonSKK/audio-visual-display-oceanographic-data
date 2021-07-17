@@ -12,7 +12,7 @@ openFrameworks as an OSC message.
 Audio: Each value configures the frequency, amplitute, pan, modulation frequency and more synth parameters.
 Visuals: Each column (temp, significant height [Ht], Zero crossing wave period [Tz], Max height [Hmax]) configures multiple parameters
 
-![result](https://github.com/jasonskk/sonifing-and-visualising-sea-wave-datasets/result.png?raw=true)
+![result](https://github.com/JasonSKK/sonifing-and-visualising-sea-wave-datasets/blob/master/result.png?raw=true)
 
 ***
 ## Abstract
