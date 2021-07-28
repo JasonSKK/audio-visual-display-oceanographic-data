@@ -13,6 +13,9 @@ Audio: Each value configures the frequency, amplitute, pan, modulation frequency
 Visuals: Each column (temp, significant height [Ht], Zero crossing wave period [Tz], Max height [Hmax]) configures multiple parameters
 
 ![result](https://github.com/JasonSKK/sonifing-and-visualising-sea-wave-datasets/blob/master/result.png?raw=true)  
+<br />
+<br />  
+
 [Video](https://www.youtube.com/watch?v=sX-MawsKV04)
 
 ***
