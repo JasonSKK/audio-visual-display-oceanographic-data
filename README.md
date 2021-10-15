@@ -1,4 +1,4 @@
-# Sonifing & visualising sea wave datasets
+# Sonifying & visualising sea wave datasets
 ## Ionian University
 Department of Ethnomusicology
 Faculty of Music & Audiovisual Arts
@@ -12,9 +12,9 @@ openFrameworks as an OSC message.
 Audio: Each value configures the frequency, amplitute, pan, modulation frequency and more synth parameters.
 Visuals: Each column (temp, significant height [Ht], Zero crossing wave period [Tz], Max height [Hmax]) configures multiple parameters
 
-![result](https://github.com/JasonSKK/sonifing-and-visualising-sea-wave-datasets/blob/master/result.png?raw=true)  
+![result](https://github.com/JasonSKK/sonifying-and-visualising-sea-wave-datasets/blob/master/result.png?raw=true)
 <br />
-<br />  
+<br />
 
 [Video](https://www.youtube.com/watch?v=sX-MawsKV04)
 
