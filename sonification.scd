@@ -3,10 +3,10 @@
 s.meter;
 s.scope;
 //:
-~n = NetAddr("192.168.1.9", 57120);
+~n = NetAddr("10.253.233.184", 57120);
 //IP Address might change sometimes - CAREFULL IF ERROR
 //"192.168.1.3"
-~nsend = NetAddr("192.168.1.9", 12345);
+~nsend = NetAddr("10.253.233.184", 12345);
 //:-----------------------------------------------------------------------------------------
 //Synths
 b = Buffer.readChannel(s, Platform.userHomeDir +/+ "Media/SoundSamples/recordings-department-ethnomus-dig-sound-synthesis_15-6-15/pigadi_apo_poli_konta_syrsimata.wav", 2**19, -1, channels: 1);
@@ -683,61 +683,5 @@ OSCdef(\max_height,
 
 //:-------------------------------------------------------------------------------
 
-
-//:
-
-
-
-
-
-//USEFULL SYNTHS & experimentation
-
-//: 
-play{
-	Pulse.ar(200 + ((1..30) * [-1, 1].choose).normalizeSum, SinOsc.ar(200, Line.kr(pi/8, pi, 4))) * 0.01!2
-}
-
-//:
-
-play{
-	var sig = Pulse.ar(100 + ((1..30) * [-1, 1].choose).normalizeSum, SinOsc.ar(100, Line.kr(pi/8, pi, 4))) * 0.02 * Line.kr(1, 0, 15).clip2(0.666)!2;
-	sig = LPF.ar(sig, Line.kr(10000, 4444, 1));
-	sig = Compander.ar(sig, sig, 0.666, 1.0, 0.1);
-}
-
-//:
-//FROM GRADES
-//:
-//==10 //// Soprano
-SynthDef ("signal",
-    {
-        arg freq = 440, amp = 1;
-        var env , sin, out, pan, temp, sum;
-        sum = 0;
-        10.do{
-            temp = LFTri.ar (freq, rand(0.444, 0.666), mul:rand(0.444, 0.666))
-            + LPF.ar(LFPulse.ar (freq, rand(0.444, 0.666), mul:rand(0.222, 0.333)), 3333);
-            sum = sum + temp;
-        };
-        sin = sum + CombC.ar(Decay.ar(Gendy1.ar(4, 0.001), Impulse.kr(8)), 0.2, 0.1, mul: [0.2, 0, 0, 0].choose);
-        env = Env. perc(2, 2).kr (doneAction:2);
-        pan = LFNoise1.kr(4, SinOsc.kr(10).range(-0.2, 0.2)).range(0.3, -0.3);
-        out =  sin * 0.033 * amp;
-        out = FreeVerb.ar(out, 0.466, 1, 0.9) * env * 0.8;
-        Out.ar (0,Pan2.ar ( [out, out], pan))
-	}).play;
-
-Synth("phm1", [\freq, [300, 500, 1000, 2000 ].choose, \amp, 1]);
-//<=5
-//:
-SynthDef("phm1", {
-    |freq = 369, amp = 0.5, pan = 0|
-    var sig, env, out;//FM_vvvvTRI=Carr_Gendy=Mod/////////////////////////////RingMOD__vvvvv___Carrier&vvvvvModulator
-    sig = LFTri.ar(Gendy1.kr(1, 5, 0.1, 1.0,  20, 2000, ampscale: 0.4, durscale: 0.12)) * (3*SinOsc.ar(freq, SinOsc.kr(1000).range(0.01, 0.999))) ;
-	sig = LPF.ar(sig, 6000);
-    env = Env.perc(0.1, 5, 0.3).kr(doneAction:2);//AmpEnvelope
-    out = sig * env * amp * 0.1 * 0.5;
-    Out.ar(0, Pan2.ar(out, pan))
-}).add;
 
 

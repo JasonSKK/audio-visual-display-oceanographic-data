@@ -1,16 +1,10 @@
 # Sonifying & visualising sea wave datasets
-## Ionian University
-Department of Ethnomusicology
-Faculty of Music & Audiovisual Arts
 
-Thesis: Svoronos - Kanavas Jason (2371)
+A python script was used for the initial oceanographic wave data processing (timeseries, txt file)
+python-osc lib was used to send the data in real time from python to SuperCollider and from there to openFrameworks
 
-Sea wave data (timeseries, txt file) are being iterated using Python.
-In real time each value is being sent to SuperCollider and from there to
-openFrameworks as an OSC message.
-
-Audio: Each value configures the frequency, amplitute, pan, modulation frequency and more synth parameters.
-Visuals: Each column (temp, significant height [Ht], Zero crossing wave period [Tz], Max height [Hmax]) configures multiple parameters
+Sonification: Each value configures the frequency, amplitute, pan, modulation frequency and more synth parameters.
+Visualisation: Each column (temp, significant height [Ht], Zero crossing wave period [Tz], Max height [Hmax]) configures multiple parameters
 
 ![result](https://github.com/JasonSKK/sonifying-and-visualising-sea-wave-datasets/blob/master/result.png?raw=true)
 <br />
@@ -19,11 +13,3 @@ Visuals: Each column (temp, significant height [Ht], Zero crossing wave period [
 [Video](https://www.youtube.com/watch?v=sX-MawsKV04)
 
 ***
-## Abstract
-
-The sonification and visualisation techniques are increasingly used in scientific applications that aim to study and analyse complex sets of observations / data. The present dissertation focuses on the implementation of the aforementioned techniques for the representation of sea wave data fluctuations by aiming at a final audiovisual product using algorithmic methods in both sound and visual synthesis.
-This practice is an interdisciplinary endeavour that transmutes art, science and technology into an audiovisual experience. It seeks to contribute to the scientific community by highlighting the virtues of combining the sonification technique with that of visualisation for a better comprehension of large sets of data while at the same time can be used as an educational medium for understanding complex concepts and observations by the general public.
-Algorithmic art can be used as a new contemporary means of chance in the artistic creative process. In particular, in the present implementation, observations / data are used which show stochastic behaviour, in this way embody the concept of chance. The artist, utilising the available digital tools as well as the relevant bibliography, can introduce the factor of chance in an artwork using the computer as a medium, paradoxically since computers are the epitome of determinism as stated by Sprott (2000), in order to go beyond the predetermined and explore new aspects in the context of artistic creation.
-In practice, the Python programming language was used to manage and organise the data. Then, they were routed using Open Sound Control protocol to the SuperCollider framework for configuring sound and from there to the openFrameworks for the configuration of the visual representation.
-
-Keywords: Audio-visual, sonification, visualisation, sea wave data, OSC, python, SuperCollider, openFrameworks
