@@ -2,10 +2,10 @@
 // SuperCollider Workspace
 // =====================================================================
 
-~n = NetAddr("192.168.1.4", 57120);
+~n = NetAddr("10.253.255.40", 57120);
 //IP Address might change sometimes - CAREFULL IF ERROR
 //"192.168.1.3"
-~nsend = NetAddr("192.168.1.4", 12345);
+~nsend = NetAddr("10.253.255.40", 12345);
 
 //Scale
 ~scale = Scale.phrygian.degreeToFreq([0, 1, 3, 5, 7, 8, 10, 12], 59.midicps, 1);

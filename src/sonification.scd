@@ -3,10 +3,10 @@
 s.meter;
 s.scope;
 //:
-~n = NetAddr("10.253.233.184", 57120);
+~n = NetAddr("192.168.1.76", 57120);
 //IP Address might change sometimes - CAREFULL IF ERROR
 //"192.168.1.3"
-~nsend = NetAddr("10.253.233.184", 12345);
+~nsend = NetAddr("192.168.1.76", 12345);
 //:-----------------------------------------------------------------------------------------
 //Synths
 b = Buffer.readChannel(s, Platform.userHomeDir +/+ "Media/SoundSamples/recordings-department-ethnomus-dig-sound-synthesis_15-6-15/pigadi_apo_poli_konta_syrsimata.wav", 2**19, -1, channels: 1);
@@ -47,11 +47,11 @@ SynthDef("bjor", {
 //GRANULATOR
 "toy_grain".postln;
 SynthDef("toygrain", {
-	| gate, amp = 0.5, sndbuf, envbuf, pan = 0|
+	| gate, amp = 0.5, sndbuf, envbuf, pan = 0, grain=10|
 	var sig, out, env;
 	env = EnvGen.kr(
 		Env.adsr(0.1, 0.2, 1, 9, curve: \welch), gate, doneAction:2);
-	sig = GrainBuf.ar(1, Dust.kr(10), 0.2, sndbuf,//was 10 and 0.5
+	sig = GrainBuf.ar(1, Dust.kr(grain), 0.2, sndbuf,//was 10 and 0.5
 		//Rate
 		LFNoise1.kr(0.5).range(-0.5, -0.9),
 		//Pos
@@ -72,13 +72,15 @@ SynthDef("toygrain", {
 
 //Wave
 SynthDef("wave1", {
-	|freqst = 18000, freqend = 100, durf = 10, bwtst = 0.4, bwtend = 1.2, amp = 0.5, durbwt = 8, panst = 0.9, panend = -0.2, cutoff = 12000|
+	|freqst = 18000, freqend = 100, durf = 10, bwtst = 0.4, bwtend = 1.2, amp = 0.5, durbwt = 8, panst = 0.9, panend = -0.2, cutoff = 12000,pmf=200,modf=4|
 	var sig, env, out;
 	sig = Resonz.ar(
 		LFNoise0.ar(10000),
 		Env([freqst, freqend, freqend], [durf, 0.9], \exp).kr,
 		XLine.kr(bwtst, bwtend, durbwt));
 	//sig = CombC.ar(sig, 0.2, 0.1, 6, add:sig);
+	sig = sig * SinOsc.ar(modf,add:-4);
+	sig = sig + SinOsc.ar(freqend+200,SinOsc.ar(pmf),mul:0.7);
 	sig = LPF.ar(sig, cutoff);
 	sig = Compander.ar(sig, sig, 0.4, 1, 0.1, clampTime: 0.05);
 	sig = sig.clip2(0.666);
@@ -372,11 +374,11 @@ OSCdef(\sign_height,
 			{
 				amp = amp + 0.01;
 				~s4.set(\gate, 0);
-				~s4.set(\gate, 1, \amp, amp);
+				~s4.set(\gate, 1, \amp, amp, \grain, temp.linlin(1, 1000, 5, 20));
 			});
 
 		if((~counter >= 40) && (~counter < 44) && (~counter.even), {
-			Synth("wave1");
+			Synth("wave1",[\modf, temp.linlin(1,1000,5,20), \pmf, temp.linlin(1,1000,100,600)]);
 		});
 		if(~counter == 47,{~s4.set(\gate, 0)} );
 		//HERE AMBIENCE STOPS
@@ -388,7 +390,7 @@ OSCdef(\sign_height,
 			
 		});
 		if((~counter >= 49) && (~counter < 54) && (~counter.even), {
-			Synth("wave1", [\cutoff, 800, \amp, 1]);
+			Synth("wave1", [\cutoff, 800, \amp, 1, \modf, temp.linlin(1,1000,5,20), \pmf, temp.linlin(1,1000,100,600)]);
 		});
 
 		
@@ -417,6 +419,7 @@ OSCdef(\zero_upcrossing,
 		
 		//even.postln;
 		//4th or 5th
+		/*
 		if(temp <= 125, {freq = [~scale[3], ~scale[4]].choose});
 		if((temp > 125) && (temp <= 250), {
 			freq = [~scale[4], ~scale[5]].choose});
@@ -431,6 +434,7 @@ OSCdef(\zero_upcrossing,
 		if((temp > 750) && (temp <= 875), {
 			freq = [~scale[1], ~scale[2]*2].choose});
 		if((temp > 875), {freq = [~scale[2], ~scale[3] *2].choose});
+		*/
 		
 		if(~counter == 65, {~s5 = Synth("chaos", [\freq, temp]);
 			//////////////////////////////////////////////////////////////HEY
@@ -570,6 +574,7 @@ OSCdef(\max_height,
 		//7th and 11th
 		///////////////////////////
 		//1000 max freq value (so 1000 / 8 = 125 for 8 notes Ionian)
+		
 		if(temp <= 125, {freq = [~scale[6], ~scale[3]].choose});
 		if((temp > 125) && (temp <= 250), {
 			freq = [~scale[7], ~scale[4]].choose});
@@ -584,6 +589,7 @@ OSCdef(\max_height,
 		if((temp > 750) && (temp <= 875), {
 			freq = [~scale[4]*2, ~scale[1]*2].choose});
 		if((temp > 875), {freq = [~scale[7], ~scale[1] *2].choose});
+		
 		
 		if((~counter > 100) && (~counter < 150) && (~counter.even), {
 			"nsgate-goes-in".postln;
