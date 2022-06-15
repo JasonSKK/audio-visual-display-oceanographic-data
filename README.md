@@ -1,15 +1,11 @@
 # Sonifying & visualising sea wave datasets
 
-A python script was used for the initial oceanographic wave data processing (timeseries, txt file)
-python-osc lib was used to send the data in real time from python to SuperCollider and from there to openFrameworks
-
-Sonification: Each value configures the frequency, amplitute, pan, modulation frequency and more synth parameters.
-Visualisation: Each column (temp, Significant height [Ht], Zero crossing wave period [Tz], Max height [Hmax]) configures multiple parameters
+The present study is an interdisciplinary endeavour that transmutes science, technology, and aesthetics into an audiovisual experience. The objective is to highlight the potential of combining sonification with visualisation in order to enhance the comprehension of extensive and complex sets of data. Moreover, this paper describes contemporary tools and methods for the implementation of the practice and suggests effective ways to monitor environmental changes. It can be regarded as an exploratory study for familiarisation with the potential of sonification and visualisation in the exploration of environmental data.
 
 ![result](https://github.com/JasonSKK/sonifying-and-visualising-sea-wave-datasets/blob/master/result.png?raw=true)
 <br />
 <br />
 
-[Video](https://www.youtube.com/watch?v=sX-MawsKV04)
+[Video](https://vimeo.com/698105264)
 
 ***

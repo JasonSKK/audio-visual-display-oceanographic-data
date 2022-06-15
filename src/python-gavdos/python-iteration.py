@@ -10,7 +10,7 @@ import time
 #Load the .txt file
 df = np.loadtxt(fname = os.getcwd()+"/GAVDOS1.txt", dtype='str')
 #pyosc
-client = udp_client.SimpleUDPClient("192.168.1.76", 57120)
+client = udp_client.SimpleUDPClient("127.0.0.1", 57120)
 #IP Address might change sometimes - CAREFULL IF ERROR
 
 for i in range(len(df)):
